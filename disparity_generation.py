@@ -21,6 +21,7 @@ def match_and_return(outer_loop, inner_loop):
     return return_list
 
 for train in trains:
+    print('Current Train Folder:' + train)
     subroot_dir = root_dir + train
 
     argoverse_loader = ArgoverseTrackingLoader(subroot_dir)
@@ -61,6 +62,7 @@ for train in trains:
         # store the overlapping timeframes
         # overlap is the list of 10 digits timestamp that are both in stereo and lidar
         overlap = match_and_return(stereo_timeonly, lidar_timeonly)
+        print(len(overlap))
         #overlap = []
         #for i in range(len(stereo_timeonly)):
         #    for j in range(len(lidar_timeonly)):
@@ -69,6 +71,7 @@ for train in trains:
         
         # sort only corresponding lidar files (absolute file location)
         only_lidar = match_and_return(overlap, lidar_list)
+        print(len(only_lidar))
         # only_lidar = []
         # for i in range(len(overlap)):
         #     for j in range(len(lidar_list)):
@@ -77,6 +80,7 @@ for train in trains:
         
         # sort only corresponding lidar files (timestamp only)
         only_lidar_time = match_and_return(overlap, lidar_timestamp_list)
+        print(len(only_lidar_time))
         # for i in range(len(overlap)):
         #     for j in range(len(lidar_timestamp_list)):
         #         if(overlap[i] in str(lidar_timestamp_list[j])):
@@ -84,6 +88,7 @@ for train in trains:
                     
         # sort only corresponding stereo left files (absolute file location)
         only_left = match_and_return(overlap, stereo_left_list['stereo_front_left'])
+        print(len(only_left))
         # for i in range(len(overlap)):
         #     for j in range(len(stereo_left_list['stereo_front_left'])):
         #         if(overlap[i] in stereo_left_list['stereo_front_left'][j]):
@@ -91,6 +96,7 @@ for train in trains:
                     
         # sort only corresponding stereo right files (absolute file location)
         only_right = match_and_return(overlap, stereo_left_list['stereo_front_right'])
+        print(len(only_right))
         # for i in range(len(overlap)):
         #     for j in range(len(stereo_left_list['stereo_front_right'])):
         #         if(overlap[i] in stereo_left_list['stereo_front_right'][j]):
