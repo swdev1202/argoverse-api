@@ -114,6 +114,8 @@ for train in trains:
                 depth_map[int(valid_uv[i, 1]), int(valid_uv[i, 0])] = valid_uvd[i, 2]
             
             disp_map = (calibL.K[0,0] * baseline) / depth_map
+            # making all negative values of disparity to -1.0
+            disp_map[disp_map < 0] = -1.0
             np.save(disparity_dir + str(lidar_timestamp), disp_map)           
             
         #copy corresponding left and right images to dedicated location
