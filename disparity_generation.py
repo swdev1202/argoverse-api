@@ -21,7 +21,7 @@ def match_and_return(outer_loop, inner_loop):
                     return_list.append(inner_loop[j])
     return return_list
 
-subroot_dir = root_dir + 'train1/'
+subroot_dir = root_dir + 'train2/'
 argoverse_loader = ArgoverseTrackingLoader(subroot_dir)
 print('Total number of logs:',len(argoverse_loader))
 argoverse_loader.print_all()
