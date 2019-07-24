@@ -96,7 +96,7 @@ for train in trains:
                 print(log_id)
 
             lidar_timestamp = only_lidar_time[idx]
-            print("index: ", idx, "current timestamp: ", lidar_timestamp)
+            # print("index: ", idx, "current timestamp: ", lidar_timestamp)
             '''
             pc = load_ply(only_lidar[idx])
             
