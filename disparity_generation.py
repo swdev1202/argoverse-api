@@ -34,7 +34,7 @@ for train in trains:
     baseline = 0.3
 
     for log_id in argoverse_loader.log_list:
-        print("processing log:", log_id)
+        # print("processing log:", log_id)
         argoverse_data = argoverse_loader.get(log_id)
         calibL = argoverse_data.get_calibration(camL)
         calibR = argoverse_data.get_calibration(camR)
@@ -90,14 +90,16 @@ for train in trains:
         # sort only corresponding stereo right files (absolute file location)
         only_right = match_and_return(overlap, stereo_left_list['stereo_front_right'])
         #print(len(only_right))
+
+        if(len(only_lidar) != len(only_left)):
+            print("error")
+            print(log_id)
                     
         for idx in range(len(only_lidar)):
-            if(len(only_lidar) != len(overlap)):
-                print(log_id)
-
+            '''
             lidar_timestamp = only_lidar_time[idx]
             # print("index: ", idx, "current timestamp: ", lidar_timestamp)
-            '''
+            
             pc = load_ply(only_lidar[idx])
             
             uv = calibL.project_ego_to_image(pc)
@@ -121,11 +123,13 @@ for train in trains:
             # making all negative values of disparity to -1.0
             disp_map[disp_map < 0] = -1.0
             np.save(disparity_dir + str(lidar_timestamp), disp_map)  
-            '''         
+            '''
+            
             
         #copy corresponding left and right images to dedicated location
         '''
         for i in range(len(overlap)):
             shutil.copy2(only_left[i], stereo_left_dir)
             shutil.copy2(only_right[i], stereo_right_dir)
-        '''
+            '''
+        
