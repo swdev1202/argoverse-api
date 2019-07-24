@@ -7,9 +7,9 @@ from argoverse.utils.ply_loader import load_ply
 from argoverse.utils.camera_stats import get_image_dims_for_camera as get_dim
 
 root_dir = '/data/cmpe297-03-sp19/PilotA/Argoverse_3d_tracking/argoverse-tracking/'
-disparity_dir = root_dir + 'disparity4/'
-stereo_left_dir = root_dir + 'stereo_left4/'
-stereo_right_dir = root_dir + 'stereo_right4/'
+disparity_dir = root_dir + 'disparity1/'
+stereo_left_dir = root_dir + 'stereo_left1/'
+stereo_right_dir = root_dir + 'stereo_right1/'
 
 # trains = ['train1/', 'train2/', 'train3/', 'train4/']
 
@@ -21,7 +21,7 @@ def match_and_return(outer_loop, inner_loop):
                     return_list.append(inner_loop[j])
     return return_list
 
-subroot_dir = root_dir + 'train4/'
+subroot_dir = root_dir + 'train1/'
 argoverse_loader = ArgoverseTrackingLoader(subroot_dir)
 print('Total number of logs:',len(argoverse_loader))
 argoverse_loader.print_all()
