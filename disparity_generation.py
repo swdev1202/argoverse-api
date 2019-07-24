@@ -16,8 +16,8 @@ def match_and_return(outer_loop, inner_loop):
     return_list = []
     for i in range(len(outer_loop)):
             for j in range(len(inner_loop)):
-                if(inner_loop[j] in outer_loop[i]):
-                    return_list.append(outer_loop[i])
+                if(outer_loop[i] in inner_loop[j]):
+                    return_list.append(inner_loop[j])
     return return_list
 
 for train in trains:
