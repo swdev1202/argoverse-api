@@ -92,8 +92,12 @@ for train in trains:
         #print(len(only_right))
                     
         for idx in range(len(only_lidar)):
+            if(len(only_lidar) != len(overlap)):
+                print(log_id)
+
             lidar_timestamp = only_lidar_time[idx]
             print("index: ", idx, "current timestamp: ", lidar_timestamp)
+            '''
             pc = load_ply(only_lidar[idx])
             
             uv = calibL.project_ego_to_image(pc)
@@ -116,9 +120,12 @@ for train in trains:
             disp_map = (calibL.K[0,0] * baseline) / depth_map
             # making all negative values of disparity to -1.0
             disp_map[disp_map < 0] = -1.0
-            np.save(disparity_dir + str(lidar_timestamp), disp_map)           
+            np.save(disparity_dir + str(lidar_timestamp), disp_map)  
+            '''         
             
         #copy corresponding left and right images to dedicated location
+        '''
         for i in range(len(overlap)):
             shutil.copy2(only_left[i], stereo_left_dir)
             shutil.copy2(only_right[i], stereo_right_dir)
+        '''
