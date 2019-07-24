@@ -16,7 +16,7 @@ def match_and_return(outer_loop, inner_loop):
     return_list = []
     for i in range(len(outer_loop)):
             for j in range(len(inner_loop)):
-                if(inner_loop[j] == outer_loop[i]):
+                if(inner_loop[j] in outer_loop[i]):
                     return_list.append(outer_loop[i])
     return return_list
 
@@ -61,13 +61,14 @@ for train in trains:
         
         # store the overlapping timeframes
         # overlap is the list of 10 digits timestamp that are both in stereo and lidar
-        overlap = match_and_return(stereo_timeonly, lidar_timeonly)
+        #overlap = match_and_return(stereo_timeonly, lidar_timeonly)
+        
+        overlap = []
+        for i in range(len(stereo_timeonly)):
+            for j in range(len(lidar_timeonly)):
+                if(lidar_timeonly[j] == stereo_timeonly[i]):
+                    overlap.append(stereo_timeonly[i])
         print(len(overlap))
-        #overlap = []
-        #for i in range(len(stereo_timeonly)):
-        #    for j in range(len(lidar_timeonly)):
-        #        if(lidar_timeonly[j] == stereo_timeonly[i]):
-        #            overlap.append(stereo_timeonly[i])
         
         # sort only corresponding lidar files (absolute file location)
         only_lidar = match_and_return(overlap, lidar_list)
