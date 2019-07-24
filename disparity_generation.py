@@ -83,14 +83,16 @@ for log_id in argoverse_loader.log_list:
     # sort only corresponding stereo right files (absolute file location)
     only_right = match_and_return(overlap, stereo_left_list['stereo_front_right'])
 
+    error_file = open('error.txt', 'a')
     if(len(overlap) != len(only_lidar_time)):
-        print("error @" + str(log_id))
+        error_file.write(log_id)
     if(len(overlap) != len(only_lidar)):
-        print("error @" + str(log_id))
+        error_file.write(log_id)
     if(len(overlap) != len(only_left)):
-        print("error @" + str(log_id))
+        error_file.write(log_id)
     if(len(overlap) != len(only_right)):
-        print("error @" + str(log_id))
+        error_file.write(log_id)
+    error_file.close()
                 
     for idx in range(len(only_lidar)):
         lidar_timestamp = only_lidar_time[idx]
