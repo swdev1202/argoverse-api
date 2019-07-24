@@ -88,6 +88,7 @@ for train in trains:
         for idx in range(len(only_lidar)):
             if(len(only_lidar_time) != len(overlap)):
                 print("error >>>> " + str(log_id))
+                '''
             lidar_timestamp = only_lidar_time[idx]
             #print("index: ", idx, "current timestamp: ", lidar_timestamp)
             
@@ -113,7 +114,8 @@ for train in trains:
             disp_map = (calibL.K[0,0] * baseline) / depth_map
             # making all negative values of disparity to -1.0
             disp_map[disp_map < 0] = -1.0
-            # np.save(disparity_dir + str(lidar_timestamp), disp_map)  
+            # np.save(disparity_dir + str(lidar_timestamp), disp_map)
+            '''
             
             
             
