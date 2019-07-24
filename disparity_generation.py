@@ -34,7 +34,7 @@ for train in trains:
     baseline = 0.3
 
     for log_id in argoverse_loader.log_list:
-        # print("processing log:", log_id)
+        print("processing log:", log_id)
         argoverse_data = argoverse_loader.get(log_id)
         calibL = argoverse_data.get_calibration(camL)
         calibR = argoverse_data.get_calibration(camR)
@@ -68,7 +68,6 @@ for train in trains:
             for j in range(len(lidar_timeonly)):
                 if(lidar_timeonly[j] == stereo_timeonly[i]):
                     overlap.append(stereo_timeonly[i])
-        #print(len(overlap))
 
         # sort only corresponding lidar files (timestamp only)
         only_lidar_time = [] 
@@ -77,28 +76,20 @@ for train in trains:
                  if(overlap[i] in str(lidar_timestamp_list[j])):
                      only_lidar_time.append(lidar_timestamp_list[j])
 
-        #print(len(only_lidar_time))
-        
         # sort only corresponding lidar files (absolute file location)
         only_lidar = match_and_return(overlap, lidar_list)
-        #print(len(only_lidar))
    
         # sort only corresponding stereo left files (absolute file location)
         only_left = match_and_return(overlap, stereo_left_list['stereo_front_left'])
-        #print(len(only_left))
                     
         # sort only corresponding stereo right files (absolute file location)
         only_right = match_and_return(overlap, stereo_left_list['stereo_front_right'])
-        #print(len(only_right))
-
-        if(len(only_lidar) != len(only_left)):
-            print("error")
-            print(log_id)
                     
         for idx in range(len(only_lidar)):
-            '''
+            if(len(only_lidar_time) != len(overlap)):
+                print("error >>>> " + str(log_id))
             lidar_timestamp = only_lidar_time[idx]
-            # print("index: ", idx, "current timestamp: ", lidar_timestamp)
+            #print("index: ", idx, "current timestamp: ", lidar_timestamp)
             
             pc = load_ply(only_lidar[idx])
             
@@ -122,14 +113,14 @@ for train in trains:
             disp_map = (calibL.K[0,0] * baseline) / depth_map
             # making all negative values of disparity to -1.0
             disp_map[disp_map < 0] = -1.0
-            np.save(disparity_dir + str(lidar_timestamp), disp_map)  
-            '''
+            # np.save(disparity_dir + str(lidar_timestamp), disp_map)  
+            
             
             
         #copy corresponding left and right images to dedicated location
+        
         '''
         for i in range(len(overlap)):
             shutil.copy2(only_left[i], stereo_left_dir)
             shutil.copy2(only_right[i], stereo_right_dir)
-            '''
-        
+        '''
