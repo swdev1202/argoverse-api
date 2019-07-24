@@ -68,7 +68,7 @@ for train in trains:
             for j in range(len(lidar_timeonly)):
                 if(lidar_timeonly[j] == stereo_timeonly[i]):
                     overlap.append(stereo_timeonly[i])
-        print(len(overlap))
+        #print(len(overlap))
 
         # sort only corresponding lidar files (timestamp only)
         only_lidar_time = [] 
@@ -77,32 +77,19 @@ for train in trains:
                  if(overlap[i] in str(lidar_timestamp_list[j])):
                      only_lidar_time.append(lidar_timestamp_list[j])
 
-        print(len(only_lidar_time))
+        #print(len(only_lidar_time))
         
         # sort only corresponding lidar files (absolute file location)
         only_lidar = match_and_return(overlap, lidar_list)
-        print(len(only_lidar))
-        # only_lidar = []
-        # for i in range(len(overlap)):
-        #     for j in range(len(lidar_list)):
-        #         if(overlap[i] in lidar_list[j]):
-        #             only_lidar.append(lidar_list[j])
-                  
+        #print(len(only_lidar))
+   
         # sort only corresponding stereo left files (absolute file location)
         only_left = match_and_return(overlap, stereo_left_list['stereo_front_left'])
-        print(len(only_left))
-        # for i in range(len(overlap)):
-        #     for j in range(len(stereo_left_list['stereo_front_left'])):
-        #         if(overlap[i] in stereo_left_list['stereo_front_left'][j]):
-        #             only_left.append(stereo_left_list['stereo_front_left'][j])
+        #print(len(only_left))
                     
         # sort only corresponding stereo right files (absolute file location)
         only_right = match_and_return(overlap, stereo_left_list['stereo_front_right'])
-        print(len(only_right))
-        # for i in range(len(overlap)):
-        #     for j in range(len(stereo_left_list['stereo_front_right'])):
-        #         if(overlap[i] in stereo_left_list['stereo_front_right'][j]):
-        #             only_right.append(stereo_left_list['stereo_front_right'][j])
+        #print(len(only_right))
                     
         for idx in range(len(only_lidar)):
             lidar_timestamp = only_lidar_time[idx]
@@ -127,12 +114,9 @@ for train in trains:
                 depth_map[int(valid_uv[i, 1]), int(valid_uv[i, 0])] = valid_uvd[i, 2]
             
             disp_map = (calibL.K[0,0] * baseline) / depth_map
-            np.save(disparity_dir + str(lidar_timestamp), disp_map)
-            break
-            
+            np.save(disparity_dir + str(lidar_timestamp), disp_map)           
             
         #copy corresponding left and right images to dedicated location
         for i in range(len(overlap)):
             shutil.copy2(only_left[i], stereo_left_dir)
             shutil.copy2(only_right[i], stereo_right_dir)
-            break
