@@ -69,6 +69,15 @@ for train in trains:
                 if(lidar_timeonly[j] == stereo_timeonly[i]):
                     overlap.append(stereo_timeonly[i])
         print(len(overlap))
+
+        # sort only corresponding lidar files (timestamp only)
+        only_lidar_time = [] 
+        for i in range(len(overlap)):
+            for j in range(len(lidar_timestamp_list)):
+                 if(overlap[i] in str(lidar_timestamp_list[j])):
+                     only_lidar_time.append(lidar_timestamp_list[j])
+
+        print(len(only_lidar_time))
         
         # sort only corresponding lidar files (absolute file location)
         only_lidar = match_and_return(overlap, lidar_list)
@@ -78,15 +87,7 @@ for train in trains:
         #     for j in range(len(lidar_list)):
         #         if(overlap[i] in lidar_list[j]):
         #             only_lidar.append(lidar_list[j])
-        
-        # sort only corresponding lidar files (timestamp only)
-        only_lidar_time = match_and_return(overlap, lidar_timestamp_list)
-        print(len(only_lidar_time))
-        # for i in range(len(overlap)):
-        #     for j in range(len(lidar_timestamp_list)):
-        #         if(overlap[i] in str(lidar_timestamp_list[j])):
-        #             only_lidar_time.append(lidar_timestamp_list[j])
-                    
+                  
         # sort only corresponding stereo left files (absolute file location)
         only_left = match_and_return(overlap, stereo_left_list['stereo_front_left'])
         print(len(only_left))
