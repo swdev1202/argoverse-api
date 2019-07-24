@@ -32,3 +32,8 @@ for i in range(len(only_time_left)):
     current_left = only_time_left[i]
     if(current_left not in only_time_disp):
         print(current_left)
+
+for i in range(len(only_time_disp)):
+    current_disp = only_time_disp[i]
+    if(current_disp not in only_time_left):
+        print("print = " + current_disp)
