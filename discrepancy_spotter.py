@@ -21,6 +21,14 @@ for left in left_list:
     left_split = left_split.split('_')
     only_time_left.append(left_split[3][:10])
 
-print(only_time_left)
-print(len(only_time_disp))
-print(len(only_time_left))
+only_time_right = []
+for right in right_list:
+    right_split = right.split('.')
+    right_split = right_split[0]
+    right_split = right_split.split('_')
+    only_time_right.append(right_split[3][:10])
+
+for i in range(len(only_time_left)):
+    current_left = only_time_left[i]
+    if(current_left not in only_time_disp):
+        print(current_left)
