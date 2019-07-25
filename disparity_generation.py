@@ -45,8 +45,8 @@ for i in range(len(trains)):
         ## NOTE!
         ## log ids are mixed with '-' and '_'
         ## therefore, we are going to change all '_' to '-'
-        log_id = log_id.replace('_', '-')
-        get_log_identifier = log_id.split('-')[0]
+        new_log_id = log_id.replace('_', '-')
+        get_log_identifier = new_log_id.split('-')[0]
         print("processing log:", log_id)
         argoverse_data = argoverse_loader.get(log_id)
         calibL = argoverse_data.get_calibration(camL)
