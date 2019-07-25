@@ -98,7 +98,7 @@ for i in range(4):
                     
         for idx in range(len(only_lidar)):
             lidar_timestamp = only_lidar_time[idx]
-            print("index: ", idx, "current timestamp: ", lidar_timestamp)
+            #print("index: ", idx, "current timestamp: ", lidar_timestamp)
             
             pc = load_ply(only_lidar[idx])
             
