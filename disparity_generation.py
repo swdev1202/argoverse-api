@@ -24,6 +24,7 @@ for i in range(4):
     i = i + 1
     print(i)
     disparity_dir = disparity_dir + str(i) + '/'
+    print(disparity_dir)
     stereo_left_dir = stereo_left_dir + str(i) + '/'
     stereo_right_dir = stereo_right_dir + str(i) + '/'
 
