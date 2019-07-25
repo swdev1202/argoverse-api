@@ -44,6 +44,13 @@ for i in range(4):
         calibR = argoverse_data.get_calibration(camR)
         focalX_px = calibL.K[0,0]
         baseline_focal = focalX_px * baseline
+
+        if not os.path.isdir(disparity_dir):
+            os.makedirs(disparity_dir)
+        if not os.path.isdir(stereo_left_dir):
+            os.makedirs(stereo_left_dir)
+        if not os.path.isdir(stereo_right_dir):
+            os.makedirs(stereo_right_dir)
         
         lidar_list = argoverse_data.lidar_list
         lidar_timestamp_list = argoverse_data.lidar_timestamp_list
