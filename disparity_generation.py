@@ -7,11 +7,6 @@ from argoverse.utils.ply_loader import load_ply
 from argoverse.utils.camera_stats import get_image_dims_for_camera as get_dim
 
 root_dir = '/data/cmpe297-03-sp19/PilotA/Argoverse_3d_tracking/argoverse-tracking/'
-#disparity_dir = root_dir + 'disparity4/'
-#stereo_left_dir = root_dir + 'stereo_left4/'
-#stereo_right_dir = root_dir + 'stereo_right4/'
-
-trains = ['train1/', 'train2/', 'train3/', 'train4/']
 
 def match_and_return(outer_loop, inner_loop):
     return_list = []
@@ -25,13 +20,15 @@ disparity_dir = root_dir + 'disparity'
 stereo_left_dir = root_dir + 'stereo_left'
 stereo_right_dir = root_dir + 'stereo_right'
 
-for i in range(len(trains)):
+for i in range(4):
     i = i + 1
+    print(i)
     disparity_dir = disparity_dir + str(i) + '/'
     stereo_left_dir = stereo_left_dir + str(i) + '/'
     stereo_right_dir = stereo_right_dir + str(i) + '/'
 
     subroot_dir = root_dir + 'train' + str(i) + '/'
+    print(subroot_dir)
     argoverse_loader = ArgoverseTrackingLoader(subroot_dir)
     print('Total number of logs:',len(argoverse_loader))
     argoverse_loader.print_all()
@@ -125,7 +122,7 @@ for i in range(len(trains)):
             # making all negative values of disparity to -1.0
             disp_map[disp_map < 0] = -1.0
             disp_store_name = get_log_identifier + '_' + str(lidar_timestamp)
-            np.save(disparity_dir + disp_store_name, disp_map)
+            #np.save(disparity_dir + disp_store_name, disp_map)
             
         #copy corresponding left and right images to dedicated location
         for i in range(len(overlap)):
@@ -135,8 +132,8 @@ for i in range(len(trains)):
             left_store_name = get_log_identifier + '_' + get_left_name
             right_store_name = get_log_identifier + '_' + get_right_name
 
-            shutil.copy2(only_left[i], stereo_left_dir + left_store_name)
-            shutil.copy2(only_right[i], stereo_right_dir + right_store_name)
+            #shutil.copy2(only_left[i], stereo_left_dir + left_store_name)
+            #shutil.copy2(only_right[i], stereo_right_dir + right_store_name)
 
 ''' 
 for train in trains:
