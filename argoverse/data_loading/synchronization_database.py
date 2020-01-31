@@ -146,6 +146,36 @@ class SynchronizationDB:
             return None
         return closest_lidar_timestamp
 
+    def get_closest_lidar_timestamp_given_stereo_img(self, stereo_timestamp: int, log_id: str) -> Optional[int]:
+        """ Given a stereo image timestamp, find the synchronized corresponding LiDAR timestamp.
+            This LiDAR timestamp should have the closest absolute timestamp to the image timestamp.
+
+            Args:
+                stereo_timestamp: integer
+                log_id: string
+
+            Returns:
+                closest_lidar_timestamp: closest timestamp
+        """
+        if log_id not in self.per_log_lidartimestamps_index:
+            return None
+
+        lidar_timestamps = self.per_log_lidartimestamps_index[log_id]
+        # catch case if no files were loaded for a particular sensor
+        if not lidar_timestamps.tolist():
+            return None
+
+        closest_lidar_timestamp, timestamp_diff = find_closest_integer_in_ref_arr(stereo_timestamp, lidar_timestamps)
+        if timestamp_diff > self.MAX_LIDAR_STEREO_CAM_TIMESTAMP_DIFF:
+            # convert to nanoseconds->milliseconds for readability
+            logger.warning(
+                "No corresponding LiDAR sweep: %s > %s ms",
+                timestamp_diff / 1e6,
+                self.MAX_LIDAR_STEREO_CAM_TIMESTAMP_DIFF / 1e6,
+            )
+            return None
+        return closest_lidar_timestamp
+
     def get_closest_cam_channel_timestamp(self, lidar_timestamp: int, camera_name: str, log_id: str) -> Optional[int]:
         """ Given a LiDAR timestamp, find the synchronized corresponding image timestamp for a particular camera.
             This image timestamp should have the closest absolute timestamp.
