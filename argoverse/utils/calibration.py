@@ -103,6 +103,17 @@ class Calibration:
 
         self.camera = calib["key"][10:]
 
+    def recalibrate(self, new_K) -> None:
+        self.K = new_K
+
+        self.cu = new_K[0,2]
+        self.cv = new_K[1,2]
+        self.fu = new_K[0,0]
+        self.fv = new_K[1,1]
+
+        self.bx = new_K[0, 3] / (-self.fu)
+        self.by = new_K[1, 3] / (-self.fv)
+
     def cart2hom(self, pts_3d: np.array) -> np.ndarray:
         """Convert Cartesian coordinates to Homogeneous.
 
